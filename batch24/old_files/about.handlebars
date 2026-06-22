@@ -1,0 +1,8 @@
+<h2>{{title}}</h2>
+<p>List of users</p>
+
+<ul>
+    {{#each users}}
+        <li>{{this.name}} - Age: {{this.age}} - Role: {{this.role}}</li>
+    {{/each}}
+</ul>

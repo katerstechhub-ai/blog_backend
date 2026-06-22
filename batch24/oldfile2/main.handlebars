@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} | StudentHub</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span>StudentHub</span>
+                <span class="brand-dot"></span>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                {{#if isAdmin}}
+                <a href="/admin/dashboard" class="nav-link nav-link--admin">Admin</a>
+                {{/if}}
+            </div>
+            <div class="nav-user">
+                {{#if isAdmin}}
+                <span class="badge badge--admin"><i class="fas fa-shield-alt"></i> Admin</span>
+                {{else}}
+                <span class="badge badge--user"><i class="fas fa-user"></i> Student</span>
+                {{/if}}
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {{{body}}}
+    </main>
+
+    <footer class="footer">
+        <p>StudentHub — student management, reimagined.</p>
+    </footer>
+</body>
+</html>

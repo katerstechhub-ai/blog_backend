@@ -1,0 +1,42 @@
+<div class="hero">
+    <div class="hero__eyebrow">— Student management platform</div>
+    <h1 class="hero__title">Everything you need, <em>nothing you don't.</em></h1>
+    <p class="hero__sub">A warm, thoughtful dashboard for educators and administrators.</p>
+    
+    <div class="hero__cta">
+        {{#if isAdmin}}
+        <a href="/admin/dashboard" class="btn btn--primary">
+            <i class="fas fa-chalkboard-user"></i> Open dashboard
+        </a>
+        <span class="hero__hint">→ Welcome back, Admin</span>
+        {{else}}
+        <div class="btn btn--outline" style="cursor: default;">
+            <i class="fas fa-graduation-cap"></i> Student view
+        </div>
+        <span class="hero__hint">Admin panel is hidden — secure by design.</span>
+        {{/if}}
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <div class="feature-card__icon"><i class="fas fa-users"></i></div>
+        <h3>Student records</h3>
+        <p>Full list with grades, courses, and contact info.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-card__icon"><i class="fas fa-lock"></i></div>
+        <h3>Role‑based access</h3>
+        <p>Admins see everything. Students see the essentials.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-card__icon"><i class="fas fa-edit"></i></div>
+        <h3>CRUD operations</h3>
+        <p>Add, edit, delete — instant updates.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-card__icon"><i class="fas fa-search"></i></div>
+        <h3>Live search</h3>
+        <p>Find any student in seconds.</p>
+    </div>
+</div>

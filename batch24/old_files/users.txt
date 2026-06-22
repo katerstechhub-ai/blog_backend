@@ -1,0 +1,2 @@
+username: kater, password: 123456, email: kater@gmail.com
+username: Dell, password: 123456, email: Dell@gmail.com

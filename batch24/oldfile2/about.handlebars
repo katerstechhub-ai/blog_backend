@@ -1,0 +1,47 @@
+<div class="page-header">
+    <div class="page-header__tag">About</div>
+    <h1 class="page-header__title">Built for <em>educators,</em><br>designed for clarity.</h1>
+</div>
+
+<div class="about-grid">
+    <div class="about-block">
+        <h2>Our Mission</h2>
+        <p>StudentHub gives educational institutions a powerful, intuitive platform for managing student data — efficiently and securely, without the noise.</p>
+    </div>
+
+    <div class="about-block">
+        <h2>Key Features</h2>
+        <ul class="feature-list">
+            <li>Role-based authentication</li>
+            <li>Full student CRUD operations</li>
+            <li>Real-time search</li>
+            <li>Secure API endpoints</li>
+            <li>Responsive design</li>
+        </ul>
+    </div>
+</div>
+
+<div class="team-section">
+    <h2 class="team-section__title">Our Team</h2>
+    <div class="users-grid">
+        {{#each users}}
+        <div class="user-card">
+            <div class="user-card__avatar">{{charAt this.name 0}}</div>
+            <h3 class="user-card__name">{{this.name}}</h3>
+            <p class="user-card__dept">{{this.department}}</p>
+            <span class="role-badge role-badge--{{this.role}}">
+                {{#if (isAdminRole this.role)}}
+                    <i class="fas fa-crown"></i>
+                {{/if}}
+                {{#if (isModeratorRole this.role)}}
+                    <i class="fas fa-shield-alt"></i>
+                {{/if}}
+                {{#if (isUserRole this.role)}}
+                    <i class="fas fa-user"></i>
+                {{/if}}
+                {{this.role}}
+            </span>
+        </div>
+        {{/each}}
+    </div>
+</div>

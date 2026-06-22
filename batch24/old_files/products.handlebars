@@ -1,0 +1,9 @@
+<h2>{{title}}</h2>
+<p>Check out our awesome products!</p>
+
+<ul>
+    {{#each products}}
+        <li>{{name}} - {{price}} - {{category}} - {{#if inStock}}In Stock{{else}}Out of Stock{{/if}}</li>
+    {{/each}}
+</ul>
+

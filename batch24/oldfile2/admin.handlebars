@@ -1,0 +1,241 @@
+<div class="admin-container">
+    <div class="admin-header">
+        <div>
+            <h1><i class="fas fa-chalkboard-user"></i> Admin Dashboard</h1>
+            <div class="breadcrumb">Home / Dashboard</div>
+        </div>
+        <button class="btn-add" onclick="openAddModal()">
+            <i class="fas fa-plus"></i> Add student
+        </button>
+    </div>
+
+    <div class="stats-cards">
+        <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <div class="stat-info">
+                <h3>Total students</h3>
+                <p class="stat-number" id="totalStudents">{{students.length}}</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-chart-line"></i>
+            <div class="stat-info">
+                <h3>Average grade</h3>
+                <p class="stat-number">B+</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-book-open"></i>
+            <div class="stat-info">
+                <h3>Active courses</h3>
+                <p class="stat-number">6</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-calendar-alt"></i>
+            <div class="stat-info">
+                <h3>School year</h3>
+                <p class="stat-number">2024</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+            <h2><i class="fas fa-table-list"></i> All students</h2>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by name, course, email…">
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Grade</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th style="width: 80px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    {{#each students}}
+                    <tr data-id="{{this.id}}">
+                        <td>{{this.id}}</td>
+                        <td><strong>{{this.name}}</strong></td>
+                        <td>{{this.age}}</td>
+                        <td><span class="grade-badge">{{this.grade}}</span></td>
+                        <td>{{this.course}}</td>
+                        <td>{{this.email}}</td>
+                        <td class="actions">
+                            <button class="btn-edit" onclick="editStudent({{this.id}})" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-delete" onclick="deleteStudent({{this.id}})" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="studentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle"><i class="fas fa-user-plus"></i> New student</h2>
+            <span class="close">&times;</span>
+        </div>
+        <form id="studentForm">
+            <input type="hidden" id="studentId">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Full name</label>
+                <input type="text" id="studentName" required placeholder="e.g., Emma Thompson">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-calendar"></i> Age</label>
+                    <input type="number" id="studentAge" required placeholder="Age">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-star"></i> Grade</label>
+                    <select id="studentGrade" required>
+                        <option value="">Select grade</option>
+                        <option value="A+">A+ (Excellent)</option>
+                        <option value="A">A (Outstanding)</option>
+                        <option value="A-">A- (Very good)</option>
+                        <option value="B+">B+ (Good)</option>
+                        <option value="B">B (Satisfactory)</option>
+                        <option value="B-">B- (Average)</option>
+                        <option value="C+">C+ (Below avg)</option>
+                        <option value="C">C (Needs improvement)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-book"></i> Course</label>
+                <input type="text" id="studentCourse" required placeholder="e.g., Computer Science">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" id="studentEmail" required placeholder="student@example.com">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i> Save student
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openAddModal() {
+        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> New student';
+        document.getElementById('studentForm').reset();
+        document.getElementById('studentId').value = '';
+        document.getElementById('studentModal').style.display = 'block';
+    }
+
+    function editStudent(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        const cells = row.cells;
+        const name = cells[1].innerText;
+        const age = cells[2].innerText;
+        const grade = cells[3].querySelector('.grade-badge').innerText;
+        const course = cells[4].innerText;
+        const email = cells[5].innerText;
+        
+        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-edit"></i> Edit student';
+        document.getElementById('studentId').value = id;
+        document.getElementById('studentName').value = name;
+        document.getElementById('studentAge').value = age;
+        document.getElementById('studentGrade').value = grade;
+        document.getElementById('studentCourse').value = course;
+        document.getElementById('studentEmail').value = email;
+        document.getElementById('studentModal').style.display = 'block';
+    }
+
+    async function deleteStudent(id) {
+        if (confirm('Delete this student? This cannot be undone.')) {
+            const response = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                showNotification('Student deleted', 'success');
+                setTimeout(() => location.reload(), 800);
+            } else {
+                showNotification('Something went wrong', 'error');
+            }
+        }
+    }
+
+    document.getElementById('studentForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const id = document.getElementById('studentId').value;
+        const studentData = {
+            name: document.getElementById('studentName').value,
+            age: parseInt(document.getElementById('studentAge').value),
+            grade: document.getElementById('studentGrade').value,
+            course: document.getElementById('studentCourse').value,
+            email: document.getElementById('studentEmail').value
+        };
+        
+        const url = id ? `/api/students/${id}` : '/api/students';
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(studentData)
+        });
+        
+        if (response.ok) {
+            showNotification(id ? 'Student updated' : 'Student added', 'success');
+            setTimeout(() => location.reload(), 800);
+        } else {
+            showNotification('Error saving student', 'error');
+        }
+    });
+    
+    // Search
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('#studentTableBody tr');
+        let visible = 0;
+        
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            const match = text.includes(term);
+            row.style.display = match ? '' : 'none';
+            if (match) visible++;
+        });
+        
+        document.getElementById('totalStudents').innerText = visible;
+    });
+    
+    // Modal close
+    const modal = document.getElementById('studentModal');
+    const closeBtn = document.querySelector('.close');
+    closeBtn.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+    
+    function closeModal() { modal.style.display = 'none'; }
+    
+    function showNotification(msg, type) {
+        const notif = document.createElement('div');
+        notif.className = `notification ${type}`;
+        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+        document.body.appendChild(notif);
+        setTimeout(() => notif.remove(), 3000);
+    }
+</script>
